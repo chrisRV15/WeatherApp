@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .weather {
     display: flex;
     flex-direction: column;
@@ -5,25 +10,25 @@
     justify-content: center;
     min-height: 100vh;
     font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
+    background-color: #023246; 
     padding: 20px;
   }
   
   .search-bar {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
   }
   
   .search-bar input {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #287094;
     border-radius: 5px;
     font-size: 16px;
     width: 220px;
     margin-right: 10px;
+    background-color: #D4D4CE; 
+    color: black;
   }
   
   .search-bar button {
@@ -37,19 +42,19 @@
   }
   
   .search-bar button:hover {
-    background-color: #1e506a;
+    background-color: #D4D4CE;
+    color: black;
   }
   
   .weather-data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
+    background-color: #287094;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     padding: 20px;
-    width: 300px;
-    text-align: center;
   }
   
   .weather-icon {
@@ -60,21 +65,38 @@
   .temperature {
     font-size: 48px;
     margin: 10px 0;
-    color: #287094;
+    color: white;
   }
   
   .cityName {
-    font-size: 24px;
+    font-size: 30px;
     margin: 5px 0;
+    color: white;
   }
-  
-  .col {
+
+  .weather-info{
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 18px;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
   }
   
-  .col p {
-    margin: 5px 0;
+  .weather-info .col {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .weather-info .col span{
+    display: block;
+    font-size: 16px;
+    font-weight: 100;
+  }
+
+  .weather-info .col img{
+    filter: invert(1);
+    width: 30px;
   }
