@@ -18,6 +18,7 @@ import mist from './assets/fog.png';
 export default function App() {
   const inputRef = useRef()
   const [weatherData, setWeatherData] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
 
   const allIcons = {
     "01d": clearsky,
@@ -72,6 +73,33 @@ export default function App() {
         console.error('Error fetching the weather data:', error);
       }
     };
+
+    const fetchCities = async (query) => {
+      //const API_KEY = import.meta.VITE_CITIES_API_KEY;
+      const url = 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities';
+      const API_KEY_City = import.meta.env.VITE_CITIES_API_KEY;
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': API_KEY_City,
+          'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await fetch(`${url}?minPopulation=100000&namePrefix=${query}`, options);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+    useEffect(() => {
+      fetchCities('Chica');  // Fetch cities that start with "Chi"
+    }, []);
+
     
 
   return (
@@ -104,7 +132,7 @@ export default function App() {
             <div className='col'>
               <div>
                 <img src={thermometerimage} alt=""/>
-                <p>{weatherData.feelsLike}&deg;C</p>
+                <p>{~~(weatherData.feelsLike)}&deg;C</p>
                 <span>Feels like</span>
               </div>
             </div>
