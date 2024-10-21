@@ -68,6 +68,7 @@ export default function App() {
           feelsLike: data.main.feels_like,
           visibility: data.visibility,
           temperature: Math.floor(data.main.temp),
+          description: data.weather[0].description,
           location: data.name,
           icon: icon
         })
@@ -177,6 +178,7 @@ export default function App() {
         <div className='weather-data'>
           <h1 className="cityName">{weatherData.location}</h1>
           <img src={weatherData.icon} className="weather-icon" alt="Weather icon" />
+          <h3 className='description'>{weatherData.description}</h3>
           <h2 className="temperature">{weatherData.temperature}&deg;C</h2>
         <div className='weather-info'>
             <div className='col'>

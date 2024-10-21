@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #023246; 
+    background-color: #42215A; 
     padding: 20px;
   }
   
@@ -22,32 +22,35 @@
   
   .search-bar input {
     padding: 10px;
-    border: 1px solid #287094;
+    border: 3px solid #825897;
     border-radius: 5px;
     font-size: 16px;
     width: 220px;
     margin-right: 10px;
-    background-color: #D4D4CE; 
     color: black;
   }
   
   .search-bar button {
     padding: 10px 20px;
-    border: none;
-    background-color: #287094;
+    background: transparent;
+    border: 2px solid #825897;
+    border-radius: 10%;
+    font-size: 20px;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+    text-decoration: none;
+    z-index: 1;
+    overflow: hidden;
   }
   
   .search-bar button:hover {
-    background-color: #D4D4CE;
     color: black;
+    font-weight: bold;
+    background-color: #825897;
   }
   
+
   .weather-data {
-    background-color: #287094;
+    background-color: #825897;
     border-radius: 10px;
     width: 400px;
     margin-top: 20px;
@@ -58,8 +61,11 @@
   }
   
   .weather-icon {
-    width: 100px;
+    width: 150px;
+    padding: 20px;
     margin-bottom: 10px;
+    background-color: #42215A;
+    border-radius: 20px;
   }
   
   .temperature {
@@ -72,6 +78,12 @@
     font-size: 30px;
     margin: 5px 0;
     color: white;
+  }
+
+  .description{
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
   }
 
   .weather-info{
@@ -110,7 +122,7 @@
   }
   
   .suggestions-list {
-    background-color: #287094;
+    background-color: #825897;
     border-radius: 10px;
     list-style: none;
     margin: 0;
@@ -125,7 +137,9 @@
   }
   
   .suggestions-list li:hover {
-    background-color: #023246;
+    background-color: #42215A;
+    border-color: #825897;
+    border: solid;
   }
   
   .weather-data {
