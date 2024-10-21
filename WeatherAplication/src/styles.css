@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 .weather {
     display: flex;
@@ -9,7 +10,6 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    font-family: 'Arial', sans-serif;
     background-color: #023246; 
     padding: 20px;
   }
@@ -99,4 +99,35 @@
   .weather-info .col img{
     filter: invert(1);
     width: 30px;
+  }
+
+
+  .suggestions-container {
+    display: flex;
+    width: 450px; 
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .suggestions-list {
+    background-color: #287094;
+    border-radius: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: white;
+  }
+  
+  .suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestions-list li:hover {
+    background-color: #023246;
+  }
+  
+  .weather-data {
+    margin-top: 20px;
   }

@@ -17,6 +17,7 @@ import mist from './assets/fog.png';
 
 export default function App() {
   const inputRef = useRef()
+  const [inputValue, setInputValue] = useState('');
   const [weatherData, setWeatherData] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -47,6 +48,8 @@ export default function App() {
         alert("Enter City Name");
         return;
       }
+      setSuggestions([]);
+
       try{
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
         const response = await fetch(url);
@@ -74,8 +77,24 @@ export default function App() {
       }
     };
 
+    const debounce = (func, delay) =>{
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    };
+
     const fetchCities = async (query) => {
-      //const API_KEY = import.meta.VITE_CITIES_API_KEY;
+      
+      if(!query){
+        setSuggestions([]);
+        return;
+      }
+
+
       const url = 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities';
       const API_KEY_City = import.meta.env.VITE_CITIES_API_KEY;
       const options = {
@@ -89,26 +108,71 @@ export default function App() {
       try {
         const response = await fetch(`${url}?minPopulation=100000&namePrefix=${query}`, options);
         const result = await response.json();
+
+        if(response.status === 429){
+          setSuggestions([]);
+          return;
+        }
         console.log(result);
+
+        if (result.data){
+          setSuggestions(result.data.map(city => city.city));
+        }
+        else{
+          setSuggestions([]);
+        }
       } catch (error) {
         console.error(error);
+        setSuggestions([]);
       }
     };
 
+    const debounceFetchCities = debounce(fetchCities, 300);
 
-    useEffect(() => {
-      fetchCities('Chica');  // Fetch cities that start with "Chi"
-    }, []);
+    const handleInputChange = (e) => {
+      const query = e.target.value;
+      setInputValue(query);
+      if(query.length > 3){
+        debounceFetchCities(query);
+      }
+      else{
+        setSuggestions([]);
+      }
+    };
 
-    
+    const handleSuggestionClick = (city) => {
+      setInputValue(city);
+      setSuggestions([]);
+      fetchWeatherData(city);
+    }
 
   return (
     <>
     <div className='weather'>
       <div className='search-bar'>
-        <input ref={inputRef} type='text' className='seach-city' placeholder='Search the city name...'/>
-        <button type="submit" onClick={()=>fetchWeatherData(inputRef.current.value)}>Search</button>
+        <input 
+        ref={inputRef} 
+        type='text' 
+        className='seach-city' 
+        placeholder='Search the city name...'
+        value={inputValue}
+        onChange={handleInputChange}/>
+        <button type="submit" onClick={()=>fetchWeatherData(inputValue)}>Search</button>
       </div>
+
+      
+      {suggestions.length > 0 && (
+        <div className='suggestions-container'>
+          <ul className='suggestions-list'>
+            {suggestions.map((city,index) => (
+              <li key={index} onClick={() => handleSuggestionClick(city)}>
+                {city}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
       {weatherData?<>
         <div className='weather-data'>
           <h1 className="cityName">{weatherData.location}</h1>
